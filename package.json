@@ -1,0 +1,28 @@
+{
+    "name": "detect-lang",
+    "version": "0.0.1",
+    "description": "Input text, get language used. It's that simple.",
+    "author": {
+        "name": "vankasteelj",
+        "email": "vankasteelj@gmail.com"
+    },
+    "main": "index.js",
+    "license": "GPL-3.0",
+    "keywords": [
+        "detection",
+        "lang",
+        "language",
+        "langcode",
+        "iso-639"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vankasteelj/detect-lang.git"
+    },
+    "dependencies": {
+        "bluebird": "2.x.x",
+        "franc": "1.x.x",
+        "retext": "1.x.x",
+        "retext-language": "1.x.x"
+    }
+}
