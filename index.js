@@ -1,5 +1,4 @@
-var Promise = require('bluebird'),
-    fs = require('fs'),
+var fs = require('fs'),
     path = require('path');
 
 var parseInput = function (input) {

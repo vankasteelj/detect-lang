@@ -1,6 +1,6 @@
 {
     "name": "detect-lang",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "Input text, get language used. It's that simple.",
     "author": {
         "name": "vankasteelj",
@@ -20,7 +20,6 @@
         "url": "https://github.com/vankasteelj/detect-lang.git"
     },
     "dependencies": {
-        "bluebird": "2.x.x",
         "franc": "1.x.x",
         "retext": "1.x.x",
         "retext-language": "1.x.x"

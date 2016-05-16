@@ -2,7 +2,7 @@
 
 **Node.js module: input text, get language it's written in. It's that simple. **
 
-Based on Promises and thus working asynchronously (thanks to Bluebird), this module uses retext to analyse files & strings using Node.js
+Based on Thenable Promises and thus working asynchronously, this module uses retext to analyse files & strings using Node.js
 
 ------
 
