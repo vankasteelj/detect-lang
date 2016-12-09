@@ -8,7 +8,7 @@ var parseInput = function (input) {
             throw new Error('Input must be a string');
         }
         // test file
-        if (fs && fs.existsSync(path.normalize(input))) {
+        if (fs.existsSync && fs.existsSync(path.normalize(input))) {
             fs.readFile(path.normalize(input), function (err, data) {
                 if (err) throw err;
                 resolve(data.toString());
