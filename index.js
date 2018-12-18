@@ -1,15 +1,15 @@
-var fs = require('fs'),
+const fs = require('fs'),
     path = require('path');
 
-var parseInput = function (input) {
-    return new Promise(function (resolve, reject) {
+const parseInput = (input) => {
+    return new Promise((resolve, reject) => {
         // test string
         if (typeof input !== 'string' && !(input instanceof String)) {
             throw new Error('Input must be a string');
         }
         // test file
         if (fs.existsSync && fs.existsSync(path.normalize(input))) {
-            fs.readFile(path.normalize(input), function (err, data) {
+            fs.readFile(path.normalize(input), (err, data) => {
                 if (err) throw err;
                 resolve(data.toString());
             });
@@ -20,31 +20,31 @@ var parseInput = function (input) {
     });
 };
 
-var getLang = function (input) {
-    return new Promise(function (resolve, reject) {
-       require('retext').use(require('retext-language')).use(function () {
-           return function (cst) {
+const getLang = (input) => {
+    return new Promise((resolve, reject) => {
+       require('retext')().use(require('retext-language')).use(() => {
+           return (cst) => {
                resolve(cst);
-           }
-       }).process(input)
+           };
+       }).process(input);
     });
 };
 
-var count = function(ary, classifier) {
-    return ary.reduce(function(counter, item) {
+const count = (ary, classifier) => {
+    return ary.reduce((counter, item) => {
         var p = (classifier || String)(item);
         counter[p] = counter.hasOwnProperty(p) ? counter[p] + 1 : 1;
         return counter;
-    }, {})
+    }, {});
 };
 
-var parseLang = function (det) {
-    return new Promise(function (resolve, reject) {
-        var tmp = [];
+const parseLang = (det) => {
+    return new Promise((resolve, reject) => {
+        let tmp = [];
         
         // calc each lang iteration
-        for (var i in det.children) {
-            for (var j in det.children[i].children) {
+        for (let i in det.children) {
+            for (let j in det.children[i].children) {
                 if (det.children[i].children[j].data && det.children[i].children[j].data.language) {
                     tmp.push(det.children[i].children[j].data.language);
                 }
@@ -55,8 +55,8 @@ var parseLang = function (det) {
         tmp = count(tmp);
 
         // find best lang
-        var topLang = 0, lang, totalLang = 0;
-        for (var k in tmp) {
+        let topLang = 0, lang, totalLang = 0;
+        for (let k in tmp) {
             totalLang += tmp[k];
             if (tmp[k] > topLang) {
                 topLang = tmp[k];
@@ -72,9 +72,9 @@ var parseLang = function (det) {
     });
 };
 
-var buildResponse = function (inc) {
-    var iso639 = require('./iso-639.json');
-    var declang = iso639[inc.langcode];
+const buildResponse = (inc) => {
+    const iso639 = require('./iso-639.json');
+    let declang = iso639[inc.langcode];
 
     if (!declang) throw new Error('Not a recognized language');
 
@@ -83,7 +83,7 @@ var buildResponse = function (inc) {
     } else {
         declang.bibliographic = declang.terminologic ? iso639[declang.terminologic].bibliographic : null;
     }
-    if (declang.bibliographic == null && declang.terminologic == null) {
+    if (declang.bibliographic === null && declang.terminologic === null) {
         declang.iso6392 = inc.langcode;
     } else {
         declang.iso6392 = null;
@@ -93,10 +93,10 @@ var buildResponse = function (inc) {
     declang.detected_langs = inc.detection;
 
     return declang;
-}
+};
 
-var DetectLang = module.exports = function (input) {
-    return new Promise(function (resolve, reject) {
+const DetectLang = module.exports = (input) => {
+    return new Promise((resolve, reject) => {
         parseInput(input)
             .then(getLang)
             .then(parseLang)
